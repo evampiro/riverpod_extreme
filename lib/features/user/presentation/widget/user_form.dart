@@ -78,16 +78,16 @@ class UserForm extends ConsumerWidget {
       String? Function(String?)? validator}) {
     return Consumer(builder: (context, ref, child) {
       final state = ref.watch(provider);
-      if (T is bool) {
+      if (state is bool) {
         return SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          value: state as bool,
+          value: state,
           onChanged: (value) {
             onChanged(value as T);
           },
           title: Text(label),
         );
-      } else if (T is String) {
+      } else if (state is String) {
         return TextFormField(
           onChanged: (value) {
             onChanged(value as T);
