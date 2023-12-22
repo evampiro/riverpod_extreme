@@ -23,7 +23,7 @@ class UserForm extends ConsumerWidget {
               provider: formProvider.select((value) => value.admin),
               label: "Admin",
               onChanged: (value) =>
-                  userFormController.updateState(admin: value as bool),
+                  userFormController.updateState(admin: value),
               validator: validate,
             ),
             field(
@@ -71,26 +71,26 @@ class UserForm extends ConsumerWidget {
     );
   }
 
-  Widget field(
+  Widget field<T>(
       {required String label,
-      required Function(dynamic) onChanged,
-      required ProviderListenable provider,
+      required Function(T) onChanged,
+      required ProviderListenable<T> provider,
       String? Function(String?)? validator}) {
     return Consumer(builder: (context, ref, child) {
       final state = ref.watch(provider);
-      if (state is bool) {
+      if (T is bool) {
         return SwitchListTile(
           contentPadding: EdgeInsets.zero,
-          value: state,
+          value: state as bool,
           onChanged: (value) {
-            onChanged(value);
+            onChanged(value as T);
           },
           title: Text(label),
         );
-      } else if (state is String) {
+      } else if (T is String) {
         return TextFormField(
           onChanged: (value) {
-            onChanged(value);
+            onChanged(value as T);
           },
           initialValue: state.toString(),
           validator: validator,
