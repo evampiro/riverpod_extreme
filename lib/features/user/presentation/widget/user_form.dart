@@ -8,43 +8,48 @@ class UserForm extends ConsumerWidget {
   final UserModel? user;
   @override
   Widget build(BuildContext context, ref) {
-    final userFormController = ref.read(userFormProvider(user).notifier);
-    final userFormState = ref.watch(userFormProvider(user));
-
+    final formProvider = userFormProvider(user);
+    final userFormController = ref.read(formProvider.notifier);
+    final userFormState = ref.read(formProvider);
     return Scaffold(
       appBar: AppBar(title: Text(user == null ? "Add User" : "Edit User")),
       body: Form(
         key: userFormController.formKey,
-        onChanged: () {},
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Id: ${userFormState.id}"),
             field(
-              initialValue: userFormState.name,
+              provider: formProvider.select((value) => value.admin),
+              label: "Admin",
+              onChanged: (value) =>
+                  userFormController.updateState(admin: value as bool),
+              validator: validate,
+            ),
+            field(
+              provider: formProvider.select((value) => value.name),
               label: "Name",
-              onChanged: (value) {
-                userFormController.update(name: value);
-              },
+              onChanged: (value) => userFormController.updateState(name: value),
               validator: validate,
             ),
             field(
-              initialValue: userFormState.email,
+              provider: formProvider.select((value) => value.email),
               label: "Email",
-              onChanged: (value) {
-                userFormController.update(email: value);
-              },
+              onChanged: (value) =>
+                  userFormController.updateState(email: value),
               validator: validate,
             ),
             field(
-              initialValue: userFormState.phone,
+              provider: formProvider.select((value) => value.phone),
               label: "Phone",
-              onChanged: (value) {
-                userFormController.update(phone: value);
-              },
+              onChanged: (value) =>
+                  userFormController.updateState(phone: value),
               validator: validate,
             ),
-            const Spacer(),
+            // const Spacer(),
+            const SizedBox(
+              height: 30,
+            ),
             FilledButton.icon(
                 onPressed: () {
                   userFormController.handleSubmit(context);
@@ -52,12 +57,12 @@ class UserForm extends ConsumerWidget {
                 icon: const Icon(Icons.save),
                 label: const Text("Save"))
           ]
-              .map((e) => e is Spacer
+              .map((e) => e is SizedBox
                   ? e
                   : Container(
                       alignment: Alignment.center,
                       margin: const EdgeInsets.symmetric(
-                          vertical: 5, horizontal: 15),
+                          vertical: 5, horizontal: 20),
                       child: e,
                     ))
               .toList(),
@@ -66,18 +71,34 @@ class UserForm extends ConsumerWidget {
     );
   }
 
-  TextFormField field(
+  Widget field(
       {required String label,
-      required String initialValue,
-      required Function(String) onChanged,
+      required Function(dynamic) onChanged,
+      required ProviderListenable provider,
       String? Function(String?)? validator}) {
-    return TextFormField(
-      onChanged: (value) {
-        onChanged(value);
-      },
-      initialValue: initialValue,
-      validator: validator,
-      decoration: InputDecoration(labelText: label),
-    );
+    return Consumer(builder: (context, ref, child) {
+      final state = ref.watch(provider);
+      if (state is bool) {
+        return SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          value: state,
+          onChanged: (value) {
+            onChanged(value);
+          },
+          title: Text(label),
+        );
+      } else if (state is String) {
+        return TextFormField(
+          onChanged: (value) {
+            onChanged(value);
+          },
+          initialValue: state.toString(),
+          validator: validator,
+          decoration: InputDecoration(labelText: label),
+        );
+      } else {
+        return Container();
+      }
+    });
   }
 }

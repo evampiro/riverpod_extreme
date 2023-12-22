@@ -63,8 +63,10 @@ class UserListController extends Notifier<List<UserModel>> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => UserForm(
-                  user: user,
-                )));
+            builder: (context) => user == null
+                ? const UserForm()
+                : UserForm(
+                    user: user,
+                  )));
   }
 }

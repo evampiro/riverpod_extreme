@@ -11,5 +11,8 @@ export 'package:hooks_riverpod/hooks_riverpod.dart';
 // models
 export 'package:riverpod_extreme/features/user/domain/user_model.dart';
 
+// classes
+export 'package:riverpod_extreme/utilities/form_controller.dart';
+
 const storageContainer = "Extreme";
 final storage = GetStorage();

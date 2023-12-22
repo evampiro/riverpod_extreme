@@ -14,7 +14,7 @@ class UserDashboard extends ConsumerWidget {
       ),
       body: const Column(
         children: [
-          UserList(),
+          Expanded(child: UserList()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
