@@ -94,7 +94,9 @@ class UserForm extends ConsumerWidget {
           },
           initialValue: state.toString(),
           validator: validator,
-          decoration: InputDecoration(labelText: label),
+          decoration: InputDecoration(
+              labelText: label,
+              floatingLabelBehavior: FloatingLabelBehavior.auto),
         );
       } else {
         return Container();

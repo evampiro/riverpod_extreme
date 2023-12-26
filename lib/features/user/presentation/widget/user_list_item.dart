@@ -12,14 +12,14 @@ class UserListItem extends ConsumerWidget {
     final userListController = ref.read(userListProvider.notifier);
     return ListTile(
       onTap: () {
-        userListController.showUserForm(context, user: user);
+        userListController.showForm(context, model: user);
       },
       // isThreeLine: true,
       title: Text("${user?.name}"),
       subtitle: Text("${user?.email}\n${user?.phone}"),
       leading: Text("${user?.id}"),
       trailing: IconButton(
-        onPressed: () => userListController.removeUser(index),
+        onPressed: () => userListController.remove(index),
         icon: const Icon(Icons.delete),
       ),
     );

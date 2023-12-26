@@ -11,6 +11,24 @@ class UserDashboard extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Users"),
+        actions: [
+          Row(
+            children: [
+              const Text("Preserve State"),
+              const SizedBox(
+                width: 10,
+              ),
+              Consumer(builder: (context, ref, child) {
+                ref.watch(userListProvider);
+                return Switch(
+                    value: userListController.useStorage,
+                    onChanged: (val) {
+                      userListController.switchUseStorage();
+                    });
+              }),
+            ],
+          )
+        ],
       ),
       body: const Column(
         children: [
@@ -19,7 +37,7 @@ class UserDashboard extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          userListController.showUserForm(context);
+          userListController.showForm(context);
         },
         child: const Icon(Icons.add_box_rounded),
       ),

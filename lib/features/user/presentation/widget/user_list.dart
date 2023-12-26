@@ -41,9 +41,7 @@ class UserList extends ConsumerWidget {
                     text: " Users ",
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        ref
-                            .read(userListProvider.notifier)
-                            .showUserForm(context);
+                        ref.read(userListProvider.notifier).showForm(context);
                       },
                     mouseCursor: SystemMouseCursors.click,
                     style: Theme.of(context).textTheme.bodyMedium),
