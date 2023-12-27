@@ -4,5 +4,9 @@ import 'package:riverpod_extreme/utilities/exporter.dart';
 
 final userListProvider = NotifierProvider<UserListController, List<UserModel>>(
     UserListController.new);
+
+final userMapProvider =
+    NotifierProvider<UserMapController, Map<String, UserModel>>(
+        UserMapController.new);
 final userFormProvider = AutoDisposeNotifierProviderFamily<UserFormController,
     UserModel, UserModel?>(UserFormController.new);

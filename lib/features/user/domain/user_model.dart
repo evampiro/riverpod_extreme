@@ -14,16 +14,16 @@ class UserModel extends Equatable {
   List<Object?> get props => [name, phone, email, id, admin];
 
   final String id;
-  final String name;
-  final String phone;
-  final String email;
+  final String? name;
+  final String? phone;
+  final String? email;
   final bool admin;
 
   const UserModel(
       {required this.id,
-      required this.name,
-      required this.phone,
-      required this.email,
+      this.name,
+      this.phone,
+      this.email,
       this.admin = false});
 
   UserModel copyWith(
@@ -47,8 +47,7 @@ class UserModel extends Equatable {
         email: json["email"],
         admin: json["admin"] ?? false,
       );
-  factory UserModel.empty() =>
-      UserModel(id: shortHash(Container()), name: "", phone: "", email: "");
+  factory UserModel.empty() => UserModel(id: shortHash(Container()));
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,

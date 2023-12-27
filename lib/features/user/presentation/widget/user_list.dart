@@ -18,7 +18,7 @@ class UserList extends ConsumerWidget {
             itemBuilder: (context, index) {
               return UserListItem(index: index);
             },
-          );
+          ).animate().fadeIn();
   }
 
   Center emptyWidget(BuildContext context, WidgetRef ref) {

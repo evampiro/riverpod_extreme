@@ -8,6 +8,7 @@ class UserDashboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final userListController = ref.read(userListProvider.notifier);
+    // final userMapController = ref.read(userMapProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Users"),
@@ -38,6 +39,7 @@ class UserDashboard extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           userListController.showForm(context);
+          // userMapController.add();
         },
         child: const Icon(Icons.add_box_rounded),
       ),

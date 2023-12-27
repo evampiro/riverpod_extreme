@@ -19,6 +19,7 @@ class UserForm extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Id: ${userFormState.id}"),
+
             field(
               provider: formProvider.select((value) => value.admin),
               label: "Admin",
@@ -26,7 +27,7 @@ class UserForm extends ConsumerWidget {
                   userFormController.updateState(admin: value),
               validator: validate,
             ),
-            field(
+            field<String?>(
               provider: formProvider.select((value) => value.name),
               label: "Name",
               onChanged: (value) => userFormController.updateState(name: value),
@@ -87,19 +88,17 @@ class UserForm extends ConsumerWidget {
           },
           title: Text(label),
         );
-      } else if (state is String) {
+      } else {
         return TextFormField(
           onChanged: (value) {
             onChanged(value as T);
           },
-          initialValue: state.toString(),
+          initialValue: state as String?,
           validator: validator,
           decoration: InputDecoration(
               labelText: label,
               floatingLabelBehavior: FloatingLabelBehavior.auto),
         );
-      } else {
-        return Container();
       }
     });
   }
