@@ -28,7 +28,7 @@ class UserFormController extends FormController<UserModel> {
     if (isValidated) {
       // Comparing current state and initial state
       if (state != arg) {
-        ref.read(userListProvider.notifier).handleSubmit(state);
+        ref.read(userAsyncListProvider.notifier).handleSubmit(state);
 
         Navigator.pop(context);
       } else {

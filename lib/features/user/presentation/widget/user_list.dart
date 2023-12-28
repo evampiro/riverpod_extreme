@@ -9,6 +9,7 @@ class UserList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    // final users = ref.watch(userListProvider.select((value) => value.length));
     final users = ref.watch(userListProvider.select((value) => value.length));
 
     return users == 0

@@ -19,7 +19,7 @@ class UserListItem extends ConsumerWidget {
       subtitle: Text("${user?.email}\n${user?.phone}"),
       leading: Text("${user?.id}"),
       trailing: IconButton(
-        onPressed: () => userListController.remove(index),
+        onPressed: () => userListController.removeAt(index),
         icon: const Icon(Icons.delete),
       ),
     );

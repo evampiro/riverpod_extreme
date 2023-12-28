@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:riverpod_extreme/features/user/presentation/widget/user_form.dart';
 import 'package:riverpod_extreme/utilities/exporter.dart';
-import 'package:riverpod_extreme/utilities/list_controller.dart';
+import 'package:riverpod_extreme/utilities/implementations/list_controller.dart';
 
 /// Controller for User List
 class UserListController extends ListController<UserModel> {
@@ -53,3 +53,5 @@ class UserMapController extends Notifier<Map<String, UserModel>> {
     store();
   }
 }
+
+/// Controller for User List

@@ -50,8 +50,15 @@ abstract class ListController<T> extends Notifier<List<T>> {
     store();
   }
 
-  remove(int index) {
+  removeAt(int index) {
     state = [...state..removeAt(index)];
+  }
+
+  remove(T model) {
+    final index = state.indexWhere((element) => findById(element, model));
+    if (index != -1) {
+      state = [...state..removeAt(index)];
+    }
   }
 
   /// Condition for findById

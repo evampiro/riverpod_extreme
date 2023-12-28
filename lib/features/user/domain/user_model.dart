@@ -40,6 +40,8 @@ class UserModel extends Equatable {
         admin: admin ?? this.admin,
       );
 
+  factory UserModel.fromRawJson(String json) =>
+      UserModel.fromJson(jsonDecode(json));
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
         name: json["name"],
@@ -48,6 +50,8 @@ class UserModel extends Equatable {
         admin: json["admin"] ?? false,
       );
   factory UserModel.empty() => UserModel(id: shortHash(Container()));
+
+  toRawJson() => jsonEncode(toJson());
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,

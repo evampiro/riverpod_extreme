@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:riverpod_extreme/features/user/presentation/widget/user_dashboard.dart';
 import 'package:riverpod_extreme/utilities/exporter.dart';
 
@@ -17,7 +18,7 @@ class MainApp extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         title: "App Builder",
         // navigatorKey: Keys.navigatorKey,
-        // scrollBehavior: MyCustomScrollBehavior(),
+        scrollBehavior: MyScroll(),
         theme: ThemeData.dark(),
         themeMode: ThemeMode.dark,
         builder: (context, child) {
@@ -31,4 +32,12 @@ class MainApp extends ConsumerWidget {
       );
     });
   }
+}
+
+class MyScroll extends ScrollBehavior {
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }

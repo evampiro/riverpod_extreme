@@ -1,5 +1,5 @@
 import 'package:riverpod_extreme/features/user/presentation/state/user_state.dart';
-import 'package:riverpod_extreme/features/user/presentation/widget/user_list.dart';
+import 'package:riverpod_extreme/features/user/presentation/widget/user_async_list.dart';
 import 'package:riverpod_extreme/utilities/exporter.dart';
 
 class UserDashboard extends ConsumerWidget {
@@ -7,7 +7,8 @@ class UserDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final userListController = ref.read(userListProvider.notifier);
+    // final userListController = ref.read(userListProvider.notifier);
+    final userListController = ref.read(userAsyncListProvider.notifier);
     // final userMapController = ref.read(userMapProvider.notifier);
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +21,7 @@ class UserDashboard extends ConsumerWidget {
                 width: 10,
               ),
               Consumer(builder: (context, ref, child) {
-                ref.watch(userListProvider);
+                ref.watch(userAsyncListProvider);
                 return Switch(
                     value: userListController.useStorage,
                     onChanged: (val) {
@@ -33,7 +34,7 @@ class UserDashboard extends ConsumerWidget {
       ),
       body: const Column(
         children: [
-          Expanded(child: UserList()),
+          Expanded(child: UserAsyncList()),
         ],
       ),
       floatingActionButton: FloatingActionButton(
