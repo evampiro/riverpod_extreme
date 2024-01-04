@@ -1,3 +1,4 @@
+import 'package:riverpod_extreme/features/auth/presentation/state/state.dart';
 import 'package:riverpod_extreme/features/user/data/user_repository.dart';
 import 'package:riverpod_extreme/features/user/presentation/widget/user_form.dart';
 import 'package:riverpod_extreme/utilities/exporter.dart';
@@ -24,5 +25,6 @@ class UserAsyncListController extends AsyncListController<UserModel> {
   Widget formWidget(UserModel? model) => UserForm(user: model);
 
   @override
-  Repository<UserModel> get respository => UserRepository();
+  Repository<UserModel> get respository =>
+      UserRepository(token: ref.watch(authProvider)?.token);
 }

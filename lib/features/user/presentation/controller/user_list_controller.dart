@@ -48,8 +48,8 @@ class UserMapController extends Notifier<Map<String, UserModel>> {
   }
 
   add([UserModel? model]) {
-    model ??= UserModel.empty();
-    state = {...state..[model.id] = model};
+    model ??= const UserModel();
+    state = {...state..[model.id!] = model};
     store();
   }
 }

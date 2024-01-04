@@ -13,7 +13,7 @@ class UserListMap extends ConsumerWidget {
       itemBuilder: (context, index) {
         final user = entries[index].value;
         return ListTile(
-          title: Text("name: ${user.name}"),
+          title: Text("name: ${user.fullName}"),
         );
       },
     );

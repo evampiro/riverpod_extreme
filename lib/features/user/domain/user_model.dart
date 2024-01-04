@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:riverpod_extreme/utilities/exporter.dart';
+import 'package:riverpod_extreme/features/user/domain/user_info_model.dart';
 
 List<UserModel> userModelListFromJson(String str) =>
     List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
@@ -11,52 +11,89 @@ String userModelListToJson(List<UserModel> data) =>
 
 class UserModel extends Equatable {
   @override
-  List<Object?> get props => [name, phone, email, id, admin];
+  List<Object?> get props => [
+        fullName,
+        phone,
+        info,
+        id,
+      ];
 
-  final String id;
-  final String? name;
+  final String? fullName;
   final String? phone;
-  final String? email;
-  final bool admin;
+  final String? password;
+  final UserInfoModel? info;
+  final String? id;
+  final String? token;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int? v;
 
-  const UserModel(
-      {required this.id,
-      this.name,
-      this.phone,
-      this.email,
-      this.admin = false});
+  const UserModel({
+    this.fullName,
+    this.phone,
+    this.password,
+    this.info,
+    this.id,
+    this.token,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
 
-  UserModel copyWith(
-          {String? id,
-          String? name,
-          String? phone,
-          String? email,
-          bool? admin}) =>
+  UserModel copyWith({
+    String? fullName,
+    String? phone,
+    String? password,
+    UserInfoModel? info,
+    String? id,
+    String? token,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? v,
+  }) =>
       UserModel(
-        id: id ?? this.id,
-        name: name ?? this.name,
+        fullName: fullName ?? this.fullName,
         phone: phone ?? this.phone,
-        email: email ?? this.email,
-        admin: admin ?? this.admin,
+        password: password ?? this.password,
+        info: info ?? this.info ?? const UserInfoModel(),
+        id: id ?? this.id,
+        token: token ?? this.token,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        v: v ?? this.v,
       );
 
-  factory UserModel.fromRawJson(String json) =>
-      UserModel.fromJson(jsonDecode(json));
+  factory UserModel.fromRawJson(String str) =>
+      UserModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        id: json["id"],
-        name: json["name"],
+        fullName: json["fullName"],
         phone: json["phone"],
-        email: json["email"],
-        admin: json["admin"] ?? false,
+        password: json["password"],
+        info:
+            json["info"] == null ? null : UserInfoModel.fromJson(json["info"]),
+        id: json["_id"],
+        token: json["token"],
+        createdAt: json["createdAt"] == null
+            ? null
+            : DateTime.parse(json["createdAt"]),
+        updatedAt: json["updatedAt"] == null
+            ? null
+            : DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
       );
-  factory UserModel.empty() => UserModel(id: shortHash(Container()));
 
-  toRawJson() => jsonEncode(toJson());
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
+        "fullName": fullName,
         "phone": phone,
-        "email": email,
-        "admin": admin,
+        "password": password,
+        "info": info?.toJson(),
+        "_id": id,
+        "token": token,
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
+        "__v": v,
       };
 }

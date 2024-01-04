@@ -1,10 +1,11 @@
 import 'package:flutter/gestures.dart';
-import 'package:riverpod_extreme/features/user/presentation/widget/user_dashboard.dart';
 import 'package:riverpod_extreme/utilities/exporter.dart';
+import 'package:riverpod_extreme/utilities/loader.dart';
 
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  // GetStorage().erase();
   runApp(const ProviderScope(child: MainApp()));
 }
 
@@ -28,7 +29,7 @@ class MainApp extends ConsumerWidget {
                   : const Size(1920, 1080));
           return child!;
         },
-        home: const UserDashboard(),
+        home: const Loader(),
       );
     });
   }

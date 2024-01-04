@@ -14,5 +14,9 @@ export 'package:riverpod_extreme/features/user/domain/user_model.dart';
 // classes
 export 'package:riverpod_extreme/utilities/implementations/form_controller.dart';
 
+// utils
+export 'package:riverpod_extreme/utilities/custom_snack.dart';
+export 'package:riverpod_extreme/utilities/ref_extension.dart';
+
 const storageContainer = "Extreme";
 final storage = GetStorage();

@@ -21,7 +21,11 @@ class UserAsyncList extends ConsumerWidget {
                 return ListTile(
                   onTap: () =>
                       asyncListController.showForm(context, model: user),
-                  title: Text("${user.name}"),
+                  title: Text("${user.fullName}"),
+                  subtitle: Text("${user.phone}"),
+                  trailing: Icon(user.info!.emailVerfied!
+                      ? Icons.verified
+                      : Icons.verified_user_outlined),
                 );
               },
             );

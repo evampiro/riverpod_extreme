@@ -15,8 +15,8 @@ class UserListItem extends ConsumerWidget {
         userListController.showForm(context, model: user);
       },
       // isThreeLine: true,
-      title: Text("${(user?.name)}"),
-      subtitle: Text("${user?.email}\n${user?.phone}"),
+      title: Text("${(user?.fullName)}"),
+      subtitle: Text("${user?.phone}\n${user?.phone}"),
       leading: Text("${user?.id}"),
       trailing: IconButton(
         onPressed: () => userListController.removeAt(index),

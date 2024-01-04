@@ -11,6 +11,7 @@ class UserForm extends ConsumerWidget {
     final formProvider = userFormProvider(user);
     final userFormController = ref.read(formProvider.notifier);
     final userFormState = ref.read(formProvider);
+
     return Scaffold(
       appBar: AppBar(title: Text(user == null ? "Add User" : "Edit User")),
       body: Form(
@@ -20,31 +21,44 @@ class UserForm extends ConsumerWidget {
           children: [
             Text("Id: ${userFormState.id}"),
 
-            field(
-              provider: formProvider.select((value) => value.admin),
-              label: "Admin",
-              onChanged: (value) =>
-                  userFormController.updateState(admin: value),
-              validator: validate,
-            ),
             field<String?>(
-              provider: formProvider.select((value) => value.name),
+              provider: formProvider.select((value) => value.fullName),
               label: "Name",
-              onChanged: (value) => userFormController.updateState(name: value),
+              onChanged: (value) => userFormController
+                  .updateState(userFormState.copyWith(fullName: value)),
               validator: validate,
             ),
-            field(
-              provider: formProvider.select((value) => value.email),
-              label: "Email",
-              onChanged: (value) =>
-                  userFormController.updateState(email: value),
-              validator: validate,
-            ),
+
             field(
               provider: formProvider.select((value) => value.phone),
               label: "Phone",
-              onChanged: (value) =>
-                  userFormController.updateState(phone: value),
+              onChanged: (value) => userFormController
+                  .updateState(userFormState.copyWith(phone: value)),
+              validator: validate,
+            ),
+
+            field(
+              provider: formProvider.select((value) => value.info?.email),
+              label: "Email",
+              onChanged: (value) => userFormController.updateState(userFormState
+                  .copyWith(info: userFormState.info?.copyWith(email: value))),
+              validator: validate,
+            ),
+            field(
+              provider:
+                  formProvider.select((value) => value.info?.emailVerfied),
+              label: "Email Verified",
+              onChanged: (value) => userFormController.updateState(
+                  userFormState.copyWith(
+                      info: userFormState.info?.copyWith(emailVerfied: value))),
+              validator: validate,
+            ),
+            field(
+              provider: formProvider.select((value) => value.info?.address),
+              label: "Address",
+              onChanged: (value) => userFormController.updateState(
+                  userFormState.copyWith(
+                      info: userFormState.info?.copyWith(address: value))),
               validator: validate,
             ),
             // const Spacer(),

@@ -9,17 +9,12 @@ import 'package:riverpod_extreme/utilities/exporter.dart';
 class UserFormController extends FormController<UserModel> {
   @override
   UserModel build(UserModel? arg) {
-    return arg ?? UserModel.empty();
+    return arg ?? const UserModel();
   }
 
   @override
-  updateState({String? name, String? email, String? phone, bool? admin}) {
-    state = state.copyWith(
-      name: name ?? state.name,
-      email: email ?? state.email,
-      phone: phone ?? state.phone,
-      admin: admin ?? state.admin,
-    );
+  updateState(UserModel model) {
+    state = model;
   }
 
   @override

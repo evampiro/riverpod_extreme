@@ -9,7 +9,7 @@ abstract class FormController<T> extends AutoDisposeFamilyNotifier<T, T?> {
   FormState get formState => formKey.currentState!;
   @override
   T build(T? arg);
-  updateState();
+  updateState(T model);
   handleSubmit(BuildContext context);
 }
 
