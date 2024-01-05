@@ -29,6 +29,7 @@ class AuthController extends Notifier<UserModel?> {
           ));
     }
     loginWithToken();
+
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(

@@ -8,7 +8,7 @@ final guardedButtonProvider =
 class GuardedButtonController extends AutoDisposeAsyncNotifier {
   @override
   FutureOr build() async {
-    return false;
+    return;
   }
 
   onPressed(Future Function() function) async {

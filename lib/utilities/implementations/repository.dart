@@ -6,6 +6,7 @@ abstract class Repository<T> {
   Repository({this.token, this.client});
   final baseUrl = "http://localhost:8000/";
   final endPoint = "api";
+
   late final Map<String, String> headers = {
     "Content-Type": "application/json",
     "x-access-token": token ?? ""
@@ -89,7 +90,7 @@ abstract class Repository<T> {
     if (response.statusCode == code) return response;
 
     final decodedResponse = jsonDecode(response.body);
-    throw decodedResponse["message"];
+    throw "${decodedResponse["message"]}";
 
     // throw "${response.statusCode}:${response.reasonPhrase}";
     // switch (response.statusCode) {
